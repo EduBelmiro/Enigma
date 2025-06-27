@@ -7,7 +7,7 @@
     body {
       background-color: #111;
       color: #fff;
-      font-family: Arial, sans-serif;
+      font-family: Times New Roman, sans-serif;
       text-align: center;
       padding: 50px;
     }
@@ -32,36 +32,34 @@
   </style>
 </head>
 <body>
-  <h1>Resolva o Enigma 1</h1>
-  <p>Digite a senha para avançar para o próximo nível:</p>
+  <h1>Enigma 1</h1>
+  <p>Digite a senha para avançar:</p>
   <input type="text" id="senha" placeholder="Senha">
   <button onclick="verificarSenha()">Enviar</button>
 
   <p id="mensagem"></p>
 
   <div id="conteudo-secreto">
-    <h2>Você acertou!</h2>
-    <p>Parabéns por desvendar o enigma.</p>
-    <img src="imagem.jpg" alt="Imagem secreta" width="300">
-    <audio controls>
-      <source src="audio.mp3" type="audio/mpeg">
-      Seu navegador não suporta áudio.
-    </audio>
+    <h2>Próximo vível:</h2>
+    <a href="https://example.com/proximo-desafio" target="_blank">
+      <button class="botao-ir">Ir para o próximo nível</button>
+    </a>
   </div>
 
-  <script>
+ <script>
     function verificarSenha() {
-      const senhaCorreta = "chave123"; // <- Troque aqui pela sua senha
       const senha = document.getElementById("senha").value;
+      const senhaCorreta = "chave123";
+
       const mensagem = document.getElementById("mensagem");
-      const conteudo = document.getElementById("conteudo-secreto");
+      const proximoNivel = document.getElementById("proximo-nivel");
 
       if (senha === senhaCorreta) {
         mensagem.textContent = "Senha correta!";
-        conteudo.style.display = "block";
+        proximoNivel.style.display = "block";
       } else {
-        mensagem.textContent = "Senha incorreta. Tente novamente.";
-        conteudo.style.display = "none";
+        mensagem.textContent = "Senha incorreta.";
+        proximoNivel.style.display = "none";
       }
     }
   </script>
