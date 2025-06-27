@@ -33,6 +33,7 @@
 </head>
 <body>
   <h1>Enigma 1</h1>
+  <p>--- / .. -. .. -.-. .. --- / . / --- / ..-. .. --</p>
   <p>Digite a senha para avançar:</p>
   <input type="text" id="senha" placeholder="Senha">
   <button onclick="verificarSenha()">Enviar</button>
@@ -49,7 +50,7 @@
  <script>
     function verificarSenha() {
       const senha = document.getElementById("senha").value;
-      const senhaCorreta = "chave123";
+      const senhaCorreta = "o fim e o começo";
 
       const mensagem = document.getElementById("mensagem");
       const proximoNivel = document.getElementById("proximo-nivel");
