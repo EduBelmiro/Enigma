@@ -2,29 +2,34 @@
 <html lang="pt-BR">
 <head>
   <meta charset="UTF-8">
-  <title>Enigma</title>
+  <title>Enigma 1</title>
   <style>
     body {
       background-color: #111;
-      color: #fff;
+      color: white;
       font-family: Times New Roman, sans-serif;
       text-align: center;
       padding: 50px;
     }
+
     input {
       padding: 10px;
       font-size: 16px;
     }
+
     button {
       padding: 10px 20px;
       font-size: 16px;
       margin-left: 10px;
       cursor: pointer;
     }
+
     #mensagem {
       margin-top: 20px;
       font-weight: bold;
+      color: red;
     }
+
     #conteudo-secreto {
       display: none;
       margin-top: 30px;
@@ -34,6 +39,7 @@
 <body>
   <h1>Enigma 1</h1>
   <p>--- / .. -. .. -.-. .. --- / . / --- / ..-. .. --</p>
+
   <p>Digite a senha para avançar:</p>
   <input type="text" id="senha" placeholder="Senha">
   <button onclick="verificarSenha()">Enviar</button>
@@ -41,27 +47,42 @@
   <p id="mensagem"></p>
 
   <div id="conteudo-secreto">
-    <h2>Próximo vível:</h2>
+    <h2>Próximo nível:</h2>
     <a href="https://example.com/proximo-desafio" target="_blank">
       <button class="botao-ir">Ir para o próximo nível</button>
     </a>
   </div>
 
- <script>
-    function verificarSenha() {
-      const senha = document.getElementById("senha").value;
-      const senhaCorreta = "o fim e o começo";
+  <script>
+    const hashCorreto = "a386c930e61ae6d780da671de6845c868c616d7566b734a95eaf2525e7b2d34b";
+    const hashCorreto = "1c5be8d45f59c31cb07cc0b309801f53cf4ce98ae5fd5c9e866be783d77cae43";
+    const hashCorreto = "201d0f27c046f9543198c4975d2ed52ad466836eff49c869cb36c837631669d0";
+    const hashCorreto = "53eca53f7a0d1885fc59c15a8f72adf4dee73148d73514a210bc252b0b0039a5";
+
+    async function verificarSenha() {
+      const input = document.getElementById("senha").value.trim().toLowerCase();
+      const hash = await gerarSHA256(input);
 
       const mensagem = document.getElementById("mensagem");
-      const proximoNivel = document.getElementById("proximo-nivel");
+      const conteudo = document.getElementById("conteudo-secreto");
 
-      if (senha === senhaCorreta) {
+      if (hash === hashCorreto) {
+        mensagem.style.color = "lightgreen";
         mensagem.textContent = "Senha correta!";
-        proximoNivel.style.display = "block";
+        conteudo.style.display = "block";
       } else {
+        mensagem.style.color = "red";
         mensagem.textContent = "Senha incorreta.";
-        proximoNivel.style.display = "none";
+        conteudo.style.display = "none";
       }
+    }
+
+    async function gerarSHA256(texto) {
+      const encoder = new TextEncoder();
+      const data = encoder.encode(texto);
+      const hashBuffer = await crypto.subtle.digest("SHA-256", data);
+      const hashArray = Array.from(new Uint8Array(hashBuffer));
+      return hashArray.map(b => b.toString(16).padStart(2, "0")).join("");
     }
   </script>
 </body>
